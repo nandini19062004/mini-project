@@ -1,7 +1,6 @@
 const playerText = document.getElementById("playerText");
 const restartBtn = document.getElementById('restartBtn');
 const boxes = Array.from(document.getElementsByClassName('box'));
-const winnerIndicator = getComputedStyle(document.body).getPropertyValue('--winning-blocks');
 const O_TEXT = 'O';
 const X_TEXT = 'X';
 let currentPlayer = X_TEXT;
@@ -23,10 +22,8 @@ function handlePlayerChange() {
 
 function handleRestart() {
     currentPlayer = X_TEXT;
-    spaces.forEach((space, index) => {
-        spaces[index] = null;
-        boxes[index].innerText = '';
-    });
+    spaces.fill(null); // Use fill() instead of forEach loop
+    boxes.forEach(box => box.innerText = ''); // Clear boxes text
     handlePlayerChange();
 }
 
@@ -39,9 +36,7 @@ function checkWin() {
 }
 
 function checkDraw() {
-    return spaces.every(space => {
-        return space !== null;
-    });
+    return spaces.every(space => space !== null);
 }
 
 function handleBoxClick(index) {
